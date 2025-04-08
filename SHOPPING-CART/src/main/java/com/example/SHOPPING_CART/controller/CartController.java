@@ -34,6 +34,10 @@ public class CartController {
     public List<CartItem> getCartItems() {
         return service.getCartItems();
     }
+    @PutMapping("/cart/{itemId}")
+    public CartItem updateCartItem(@PathVariable Long itemId, @RequestParam int quantity) {
+        return service.updateCartItem(itemId, quantity);
+    }
 
     @DeleteMapping("/cart/{itemId}")
     public void removeItem(@PathVariable Long itemId) {
