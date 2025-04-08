@@ -14,22 +14,18 @@ public class CartController {
 
     @Autowired
     private CartService service;
-
     @PostMapping("/products")
     public Product addProduct(@RequestBody Product product) {
         return service.addProduct(product);
     }
-
     @GetMapping("/products")
     public List<Product> getProducts() {
         return service.getAllProducts();
     }
-
     @PostMapping("/cart")
-    public CartItem addToCart(@RequestParam Long productId, @RequestParam int quantity) {
-        return service.addToCart(productId, quantity);
+    public CartItem addToCart(@RequestBody CartItem cartItem) {
+        return service.addToCart(cartItem.getProduct().getId(), cartItem.getQuantity());
     }
-
     @GetMapping("/cart")
     public List<CartItem> getCartItems() {
         return service.getCartItems();
@@ -38,7 +34,6 @@ public class CartController {
     public CartItem updateCartItem(@PathVariable Long itemId, @RequestParam int quantity) {
         return service.updateCartItem(itemId, quantity);
     }
-
     @DeleteMapping("/cart/{itemId}")
     public void removeItem(@PathVariable Long itemId) {
         service.removeItem(itemId);
@@ -48,5 +43,19 @@ public class CartController {
     public void clearCart() {
         service.clearCart();
     }
-}
 
+    @PutMapping("/products/{productId}")
+    public Product updateProduct(@PathVariable Long productId, @RequestBody Product updatedProduct) {
+        return service.updateProduct(productId, updatedProduct);
+    }
+
+
+    @DeleteMapping("/cart/product/{productId}")
+    public void removeProductFromCart(@PathVariable Long productId) {
+        service.removeProductFromCart(productId);
+    }
+    @DeleteMapping("/cart/all")
+    public void removeAllProductsFromCart() {
+        service.removeAllProducts();
+    }
+}
