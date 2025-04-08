@@ -25,6 +25,11 @@ public class CartService {
     public List<Product> getAllProducts() {
         return productRepo.findAll();
     }
+    public CartItem updateCartItem(Long itemId, int quantity) {
+        CartItem item = cartItemRepo.findById(itemId).orElseThrow(() -> new RuntimeException("Cart item not found"));
+        item.setQuantity(quantity);
+        return cartItemRepo.save(item);
+    }
 
     public CartItem addToCart(Long productId, int quantity) {
         Product product = productRepo.findById(productId).orElseThrow();
