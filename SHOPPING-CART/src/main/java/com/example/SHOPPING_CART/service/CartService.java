@@ -6,7 +6,11 @@ import com.example.SHOPPING_CART.repository.CartItemRepository;
 import com.example.SHOPPING_CART.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CartService {
 
@@ -19,7 +23,7 @@ public class CartService {
         return productRepo.save(product);
     }
     public List<Product> getAllProducts() {
-        return productRepo.findAll();
+        return productRepo.findAll().stream().sorted(Comparator.comparing(Product::getName)).collect(Collectors.toList());
     }
     public CartItem updateCartItem(Long itemId, int quantity) {
         CartItem item = cartItemRepo.findById(itemId)

@@ -14,6 +14,7 @@ public class CartController {
 
     @Autowired
     private CartService service;
+
     @PostMapping("/products")
     public Product addProduct(@RequestBody Product product) {
         return service.addProduct(product);

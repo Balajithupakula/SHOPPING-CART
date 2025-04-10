@@ -1,6 +1,5 @@
 package com.example.SHOPPING_CART.model;
 
-
 import javax.persistence.*;
 
 @Entity
