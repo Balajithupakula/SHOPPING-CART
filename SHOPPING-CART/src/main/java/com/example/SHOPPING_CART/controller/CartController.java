@@ -25,6 +25,10 @@ public class CartController {
     }
     @PostMapping("/cart")
     public CartItem addToCart(@RequestBody CartItem cartItem) {
+        if (cartItem.getQuantity() <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
+
         return service.addToCart(cartItem.getProduct().getId(), cartItem.getQuantity());
     }
     @GetMapping("/cart")
